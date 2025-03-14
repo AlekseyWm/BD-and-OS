@@ -1,8 +1,6 @@
----
-subtitle: Шикан Алексей Владимирович ИС-21
-title: "**Отчет по лабораторной работе №1: базовая настройка PostgreSQL
-  на Debian.**"
----
+# Отчет по лабораторной работе №1: базовая настройка PostgreSQL на Debian.
+# Шикан Алексей Владимирович ИС-21
+
 
 1.  **Подготовка среды**
 
@@ -13,12 +11,12 @@ title: "**Отчет по лабораторной работе №1: базов
 пользователем (user). Для выполнения административных задач используем
 команду:
 
-su -
+```su -```
 
 После успешного ввода пароля доступ был получен к root-аккаунту, что
 подтверждается командной строкой root@DEBIAN:\~#.
 
-![](vertopal_f5400db0f4044d229e4a1c62d5505929/media/image1.png){width="6.496527777777778in"
+![](LB1/media/image1.png){width="6.496527777777778in"
 height="0.7018405511811023in"}
 
 Шаг 3. После входа в систему необходимо обновить список пакетов и
@@ -36,7 +34,7 @@ apt-get update && apt-get upgrade
 -   apt-get upgrade -- обновляет установленные пакеты до последних
     доступных версий, если они есть в репозитории.
 
-![](vertopal_f5400db0f4044d229e4a1c62d5505929/media/image2.png){width="6.496527777777778in"
+![](LB1/media/image2.png){width="6.496527777777778in"
 height="1.765262467191601in"}
 
 2.  **Установка PostgreSQL**
@@ -52,7 +50,7 @@ sudo apt-get install postgresql
 -   apt-get install postgresql --- установка пакета PostgreSQL из
     официальных репозиториев Debian.
 
-![](vertopal_f5400db0f4044d229e4a1c62d5505929/media/image3.png){width="6.496527777777778in"
+![](LB1/media/image3.png){width="6.496527777777778in"
 height="3.2121719160104987in"}
 
 Шаг 2. После установки сервера была дополнительно установлена клиентская
@@ -67,7 +65,7 @@ sudo apt-get install postgresql-client
 -   apt-get install postgresql-client --- установка клиентских утилит
     PostgreSQL.
 
-![](vertopal_f5400db0f4044d229e4a1c62d5505929/media/image4.png){width="6.496527777777778in"
+![](LB1/media/image4.png){width="6.496527777777778in"
 height="2.676920384951881in"}
 
 3.  **Создание служебной учётной записи**
@@ -76,7 +74,7 @@ height="2.676920384951881in"}
 
 id postgres
 
-![](vertopal_f5400db0f4044d229e4a1c62d5505929/media/image5.png){width="6.496527777777778in"
+![](LB1/media/image5.png){width="6.496527777777778in"
 height="0.342341426071741in"}
 
 Результат:
@@ -111,7 +109,7 @@ systemctl start postgresql
 
 systemctl status postgresql
 
-![](vertopal_f5400db0f4044d229e4a1c62d5505929/media/image6.png){width="6.496527777777778in"
+![](LB1/media/image6.png){width="6.496527777777778in"
 height="1.5681266404199474in"}
 
 Результат:
@@ -159,7 +157,7 @@ height="1.5681266404199474in"}
 
 sudo -i -u postgres
 
-![](vertopal_f5400db0f4044d229e4a1c62d5505929/media/image7.png){width="6.496527777777778in"
+![](LB1/media/image7.png){width="6.496527777777778in"
 height="0.2890912073490814in"}
 
 После этого изменены основные файлы конфигурации. Файл открыт в
@@ -167,7 +165,7 @@ height="0.2890912073490814in"}
 
 sudo nano /etc/postgresql/15/main/postgresql.conf\\
 
-![](vertopal_f5400db0f4044d229e4a1c62d5505929/media/image8.png){width="6.496527777777778in"
+![](LB1/media/image8.png){width="6.496527777777778in"
 height="6.8615004374453195in"}
 
 Изменен параметр порта подключения PostgreSQL: port = 5433
@@ -186,7 +184,7 @@ sudo nano /etc/postgresql/15/main/pg_hba.conf
 
 Изменены настройки аутентификации
 
-![](vertopal_f5400db0f4044d229e4a1c62d5505929/media/image9.png){width="6.496527777777778in"
+![](LB1/media/image9.png){width="6.496527777777778in"
 height="3.34839457567804in"}
 
 Что это дает?
@@ -203,7 +201,7 @@ height="3.34839457567804in"}
 
 Также сохраняем и перезапускаем
 
-![](vertopal_f5400db0f4044d229e4a1c62d5505929/media/image10.png){width="6.496527777777778in"
+![](LB1/media/image10.png){width="6.496527777777778in"
 height="0.24620516185476815in"}
 
 Шаг 4. Проверяем порт можно через:
@@ -214,7 +212,7 @@ netstat -tuln \| grep 5433
 
 ss -tuln \| grep 5433
 
-![](vertopal_f5400db0f4044d229e4a1c62d5505929/media/image11.png){width="6.496527777777778in"
+![](LB1/media/image11.png){width="6.496527777777778in"
 height="1.0370439632545931in"}
 
 5.  **Управление сервисом**
@@ -223,7 +221,7 @@ height="1.0370439632545931in"}
 
 sudo systemctl status postgresql
 
-![](vertopal_f5400db0f4044d229e4a1c62d5505929/media/image12.png){width="6.496527777777778in"
+![](LB1/media/image12.png){width="6.496527777777778in"
 height="1.5891371391076115in"}
 
 Шаг 2. Чтобы PostgreSQL автоматически запускался при загрузке системы,
@@ -231,7 +229,7 @@ height="1.5891371391076115in"}
 
 sudo systemctl enable postgresql
 
-![](vertopal_f5400db0f4044d229e4a1c62d5505929/media/image13.png){width="6.496527777777778in"
+![](LB1/media/image13.png){width="6.496527777777778in"
 height="0.9507108486439195in"}
 
 Результат:
@@ -262,7 +260,7 @@ sudo systemctl stop postgresql
 
 psql -h localhost -p 5433 -U postgres
 
-![](vertopal_f5400db0f4044d229e4a1c62d5505929/media/image14.png){width="6.496527777777778in"
+![](LB1/media/image14.png){width="6.496527777777778in"
 height="0.9556069553805774in"}
 
 Шаг 2. Чтобы создать нового пользователя, в psql была выполнена команда:
@@ -273,7 +271,7 @@ CREATE USER sav WITH PASSWORD \'12345\';
 
 CREATE DATABASE bd1 OWNER sav;
 
-![](vertopal_f5400db0f4044d229e4a1c62d5505929/media/image15.png){width="6.496527777777778in"
+![](LB1/media/image15.png){width="6.496527777777778in"
 height="1.253015091863517in"}
 
 Шаг 4. Чтобы проверить список пользователей в PostgreSQL, была выполнена
@@ -281,14 +279,14 @@ height="1.253015091863517in"}
 
 \\du
 
-![](vertopal_f5400db0f4044d229e4a1c62d5505929/media/image16.png){width="6.496527777777778in"
+![](LB1/media/image16.png){width="6.496527777777778in"
 height="1.0278805774278215in"}
 
 Шаг 5. Проверка списка баз данных:
 
 \\l
 
-![](vertopal_f5400db0f4044d229e4a1c62d5505929/media/image17.png){width="6.496527777777778in"
+![](LB1/media/image17.png){width="6.496527777777778in"
 height="3.1046052055993in"}
 
 7.  **Знакомство со схемами**
@@ -322,7 +320,7 @@ GRANT USAGE ON SCHEMA test_schema TO sav;
 
 GRANT CREATE ON SCHEMA test_schema TO sav;
 
-![](vertopal_f5400db0f4044d229e4a1c62d5505929/media/image18.png){width="6.496527777777778in"
+![](LB1/media/image18.png){width="6.496527777777778in"
 height="1.0143274278215224in"}
 
 Объяснение:
@@ -345,7 +343,7 @@ CREATE TABLE \"schema_table\" (
 
 ALTER TABLE schema_table SET SCHEMA test_schema;
 
-![](vertopal_f5400db0f4044d229e4a1c62d5505929/media/image19.png){width="6.496527777777778in"
+![](LB1/media/image19.png){width="6.496527777777778in"
 height="1.3745548993875765in"}
 
 Шаг 3. В PostgreSQL, если схема не указана явно, поиск объектов
@@ -381,7 +379,7 @@ CREATE TABLE public.pub_table (
 
 );
 
-![](vertopal_f5400db0f4044d229e4a1c62d5505929/media/image20.png){width="6.496527777777778in"
+![](LB1/media/image20.png){width="6.496527777777778in"
 height="0.3631594488188976in"}
 
 Шаг 2. Добавляем несколько строк в таблицу:
@@ -394,14 +392,14 @@ INSERT INTO public.pub_table (id, text) VALUES
 
 (3, \'333\');
 
-![](vertopal_f5400db0f4044d229e4a1c62d5505929/media/image21.png){width="6.496527777777778in"
+![](LB1/media/image21.png){width="6.496527777777778in"
 height="0.3196314523184602in"}
 
 Шаг 3. Выбираем все данные из public.pub_table:
 
 SELECT \* FROM public.pub_table;
 
-![](vertopal_f5400db0f4044d229e4a1c62d5505929/media/image22.png){width="6.496527777777778in"
+![](LB1/media/image22.png){width="6.496527777777778in"
 height="1.1157895888013998in"}
 
 Шаг 4. Меняем значение text для строки с id=2:
@@ -412,7 +410,7 @@ UPDATE public.pub_table SET text = \'change_me\' WHERE id = 2;
 
 DELETE FROM public.pub_table WHERE id = 3;
 
-![](vertopal_f5400db0f4044d229e4a1c62d5505929/media/image23.png){width="6.496527777777778in"
+![](LB1/media/image23.png){width="6.496527777777778in"
 height="1.7180238407699038in"}
 
 Шаг 6. Теперь создаем таблицу new_table в схеме test_schema:
@@ -425,7 +423,7 @@ CREATE TABLE test_schema.new_table (
 
 );
 
-![](vertopal_f5400db0f4044d229e4a1c62d5505929/media/image24.png){width="6.496527777777778in"
+![](LB1/media/image24.png){width="6.496527777777778in"
 height="0.3684831583552056in"}
 
 Шаг 7. Добавляем записи в новую таблицу:
@@ -438,10 +436,10 @@ INSERT INTO test_schema.new_table (id, text) VALUES
 
 (3, \'333\');
 
-![](vertopal_f5400db0f4044d229e4a1c62d5505929/media/image25.png){width="6.496527777777778in"
+![](LB1/media/image25.png){width="6.496527777777778in"
 height="0.3507327209098863in"}
 
-![](vertopal_f5400db0f4044d229e4a1c62d5505929/media/image26.png){width="6.496527777777778in"
+![](LB1/media/image26.png){width="6.496527777777778in"
 height="1.1797167541557305in"}
 
 9.  **Настройка локальных и сетевых подключений**
@@ -450,7 +448,7 @@ height="1.1797167541557305in"}
 (localhost). Чтобы разрешить подключения с других машин, изменяем
 параметр listen_addresses в файле postgresql.conf:
 
-![](vertopal_f5400db0f4044d229e4a1c62d5505929/media/image27.png){width="6.496527777777778in"
+![](LB1/media/image27.png){width="6.496527777777778in"
 height="0.696913823272091in"}
 
 Важно, после необходимо перезапустить PostgreSQL.
@@ -465,7 +463,7 @@ height="0.696913823272091in"}
 доступа к PostgreSQL. Добавляем строку, разрешающую подключения по
 паролю с любого IP-адреса:
 
-![](vertopal_f5400db0f4044d229e4a1c62d5505929/media/image28.png){width="6.496527777777778in"
+![](LB1/media/image28.png){width="6.496527777777778in"
 height="1.2576498250218722in"}
 
 Важно, после необходимо перезапустить PostgreSQL.
@@ -486,25 +484,25 @@ height="1.2576498250218722in"}
 
 sudo ss -tulnp \| grep postgres
 
-![](vertopal_f5400db0f4044d229e4a1c62d5505929/media/image29.png){width="6.496527777777778in"
+![](LB1/media/image29.png){width="6.496527777777778in"
 height="0.6637751531058618in"}
 
 Шаг 4. Чтобы узнать IP-адрес сервера, выполним:
 
 hostname -I
 
-![](vertopal_f5400db0f4044d229e4a1c62d5505929/media/image30.png){width="6.496527777777778in"
+![](LB1/media/image30.png){width="6.496527777777778in"
 height="0.39590988626421697in"}
 
 Шаг 5. Запускаем DBeaver и создаем новое подключение:
 
-![](vertopal_f5400db0f4044d229e4a1c62d5505929/media/image31.png){width="6.496527777777778in"
+![](LB1/media/image31.png){width="6.496527777777778in"
 height="3.6492213473315838in"}
 
-![](vertopal_f5400db0f4044d229e4a1c62d5505929/media/image32.png){width="6.496527777777778in"
+![](LB1/media/image32.png){width="6.496527777777778in"
 height="5.821562773403325in"}
 
-![](vertopal_f5400db0f4044d229e4a1c62d5505929/media/image33.png){width="4.395833333333333in"
+![](LB1/media/image33.png){width="4.395833333333333in"
 height="4.520833333333333in"}
 
 10. **Журналирование (logging)**
@@ -512,7 +510,7 @@ height="4.520833333333333in"}
 Шаг 1. Открываем файл конфигурации: sudo nano
 /etc/postgresql/15/main/postgresql.conf\\
 
-![](vertopal_f5400db0f4044d229e4a1c62d5505929/media/image34.png){width="6.496527777777778in"
+![](LB1/media/image34.png){width="6.496527777777778in"
 height="3.2721095800524935in"}
 
 Объяснение параметров:
@@ -555,10 +553,10 @@ client=%h \'
 
 -   %h -- IP-адрес клиента.
 
-![](vertopal_f5400db0f4044d229e4a1c62d5505929/media/image35.png){width="6.496527777777778in"
+![](LB1/media/image35.png){width="6.496527777777778in"
 height="1.2804516622922135in"}
 
-![](vertopal_f5400db0f4044d229e4a1c62d5505929/media/image36.png){width="6.496527777777778in"
+![](LB1/media/image36.png){width="6.496527777777778in"
 height="1.1473578302712162in"}
 
 Шаг 3. Находим папку с логами:
@@ -569,16 +567,16 @@ ls /var/lib/postgresql/15/main/log/
 
 tail -f /var/lib/postgresql/15/main/log/postgresql-\*.log
 
-![](vertopal_f5400db0f4044d229e4a1c62d5505929/media/image37.png){width="6.496527777777778in"
+![](LB1/media/image37.png){width="6.496527777777778in"
 height="0.4955632108486439in"}
 
-![](vertopal_f5400db0f4044d229e4a1c62d5505929/media/image38.png){width="6.496527777777778in"
+![](LB1/media/image38.png){width="6.496527777777778in"
 height="1.5154746281714786in"}
 
 Шаг 4. При рестарте PostgreSQL должен появиться лог с информацией о
 запуске:
 
-![](vertopal_f5400db0f4044d229e4a1c62d5505929/media/image39.png){width="6.496527777777778in"
+![](LB1/media/image39.png){width="6.496527777777778in"
 height="1.4422287839020123in"}
 
 11. **Назначение ролей и прав**
@@ -587,7 +585,7 @@ height="1.4422287839020123in"}
 
 CREATE ROLE lim_u WITH LOGIN PASSWORD \'пароль\';
 
-![](vertopal_f5400db0f4044d229e4a1c62d5505929/media/image40.png){width="6.496527777777778in"
+![](LB1/media/image40.png){width="6.496527777777778in"
 height="1.8542847769028872in"}
 
 Шаг 2. Сощдаем базу test_bd и подключились к ней:\\
@@ -604,14 +602,14 @@ GRANT CONNECT ON DATABASE test_bd TO lim_u;
 
 GRANT SELECT ON test_t TO lim_u;
 
-![](vertopal_f5400db0f4044d229e4a1c62d5505929/media/image41.png){width="6.496527777777778in"
+![](LB1/media/image41.png){width="6.496527777777778in"
 height="1.8035126859142607in"}
 
 Шаг 5. Проверяете права на таблицу test_t с помощью команды \\z test_t:
 
 \\z test_t
 
-![](vertopal_f5400db0f4044d229e4a1c62d5505929/media/image42.png){width="6.496527777777778in"
+![](LB1/media/image42.png){width="6.496527777777778in"
 height="1.987937445319335in"}
 
 Шаг 6. Создана роль man, которая была добавлена в lim_u:
@@ -620,12 +618,12 @@ CREATE ROLE man WITH LOGIN PASSWORD \'12345\';
 
 GRANT man TO lim_u;
 
-![](vertopal_f5400db0f4044d229e4a1c62d5505929/media/image43.png){width="6.496527777777778in"
+![](LB1/media/image43.png){width="6.496527777777778in"
 height="0.4212587489063867in"}
 
 Шаг 7. Вставляем данные в таблицу test_t в базе test_bd:
 
 INSERT INTO test_t (name) VALUES (\'proverka\');
 
-![](vertopal_f5400db0f4044d229e4a1c62d5505929/media/image44.png){width="6.496527777777778in"
+![](LB1/media/image44.png){width="6.496527777777778in"
 height="0.15418963254593177in"}
