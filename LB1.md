@@ -156,7 +156,7 @@
 После этого изменены основные файлы конфигурации. Файл открыт в
 редакторе nano:
 
-```sudo nano /etc/postgresql/15/main/postgresql.conf\\```
+```sudo nano /etc/postgresql/15/main/postgresql.conf```
 
 ![](LB1/media/image8.png)
 
@@ -196,11 +196,11 @@
 
 Шаг 4. Проверяем порт можно через:
 
-```netstat -tuln \| grep 5433```
+```netstat -tuln | grep 5433```
 
 Или через команду
 
-```ss -tuln \| grep 5433```
+```ss -tuln | grep 5433```
 
 ![](LB1/media/image11.png)
 
@@ -251,7 +251,7 @@
 
 Шаг 2. Чтобы создать нового пользователя, в psql была выполнена команда:
 
-```CREATE USER sav WITH PASSWORD \'12345\';```
+```CREATE USER sav WITH PASSWORD '12345';```
 
 Шаг 3. Чтобы создать базу данных с владельцем выполнена команда:
 
@@ -262,13 +262,13 @@
 Шаг 4. Чтобы проверить список пользователей в PostgreSQL, была выполнена
 команда:
 
-```\\du```
+```\du```
 
 ![](LB1/media/image16.png)
 
 Шаг 5. Проверка списка баз данных:
 
-```\\l```
+```\l```
 
 ![](LB1/media/image17.png)
 
@@ -346,76 +346,45 @@
 
 Шаг 1. Создаем таблицу pub_table в схеме public:
 
-CREATE TABLE public.pub_table (
+```CREATE TABLE public.pub_table ("id" int PRIMARY KEY, "text" text);```
 
-\"id\" int PRIMARY KEY,
-
-\"text\" text
-
-);
-
-![](LB1/media/image20.png){width="6.496527777777778in"
-height="0.3631594488188976in"}
+![](LB1/media/image20.png)
 
 Шаг 2. Добавляем несколько строк в таблицу:
 
-INSERT INTO public.pub_table (id, text) VALUES
+``` INSERT INTO public.pub_table (id, text) VALUES (1, '111'), (2, '222'), (3, '333');```
 
-(1, \'111\'),
-
-(2, \'222\'),
-
-(3, \'333\');
-
-![](LB1/media/image21.png){width="6.496527777777778in"
-height="0.3196314523184602in"}
+![](LB1/media/image21.png)
 
 Шаг 3. Выбираем все данные из public.pub_table:
 
-SELECT \* FROM public.pub_table;
+```SELECT * FROM public.pub_table;```
 
-![](LB1/media/image22.png){width="6.496527777777778in"
-height="1.1157895888013998in"}
+![](LB1/media/image22.png)
 
 Шаг 4. Меняем значение text для строки с id=2:
 
-UPDATE public.pub_table SET text = \'change_me\' WHERE id = 2;
+```UPDATE public.pub_table SET text = 'change_me' WHERE id = 2;```
 
 Шаг 5. Удаляем запись с id=3:
 
-DELETE FROM public.pub_table WHERE id = 3;
+```DELETE FROM public.pub_table WHERE id = 3;```
 
-![](LB1/media/image23.png){width="6.496527777777778in"
-height="1.7180238407699038in"}
+![](LB1/media/image23.png)
 
 Шаг 6. Теперь создаем таблицу new_table в схеме test_schema:
 
-CREATE TABLE test_schema.new_table (
+```CREATE TABLE test_schema.new_table ("id" int PRIMARY KEY, "text" text);```
 
-\"id\" int PRIMARY KEY,
-
-\"text\" text
-
-);
-
-![](LB1/media/image24.png){width="6.496527777777778in"
-height="0.3684831583552056in"}
+![](LB1/media/image24.png)
 
 Шаг 7. Добавляем записи в новую таблицу:
 
-INSERT INTO test_schema.new_table (id, text) VALUES
+```INSERT INTO test_schema.new_table (id, text) VALUES (1, '111'), (2, '222'), (3, '333');```
 
-(1, \'111\'),
+![](LB1/media/image25.png)
 
-(2, \'222\'),
-
-(3, \'333\');
-
-![](LB1/media/image25.png){width="6.496527777777778in"
-height="0.3507327209098863in"}
-
-![](LB1/media/image26.png){width="6.496527777777778in"
-height="1.1797167541557305in"}
+![](LB1/media/image26.png)
 
 9.  **Настройка локальных и сетевых подключений**
 
@@ -423,182 +392,163 @@ height="1.1797167541557305in"}
 (localhost). Чтобы разрешить подключения с других машин, изменяем
 параметр listen_addresses в файле postgresql.conf:
 
-![](LB1/media/image27.png){width="6.496527777777778in"
-height="0.696913823272091in"}
+![](LB1/media/image27.png)
 
 Важно, после необходимо перезапустить PostgreSQL.
 
 Объяснение:
 
--   localhost -- сервер принимает подключения только с локального хоста.
+-   ```localhost``` -- сервер принимает подключения только с локального хоста.
 
--   \* -- сервер принимает подключения с любых IP-адресов.
+-   ```\*``` -- сервер принимает подключения с любых IP-адресов.
 
 Шаг 2. Файл /etc/postgresql/15/main/pg_hba.conf управляет правилами
 доступа к PostgreSQL. Добавляем строку, разрешающую подключения по
 паролю с любого IP-адреса:
 
-![](LB1/media/image28.png){width="6.496527777777778in"
-height="1.2576498250218722in"}
+![](LB1/media/image28.png)
 
 Важно, после необходимо перезапустить PostgreSQL.
 
 Разбираем добавленную строку:
 
--   host -- разрешает подключение по TCP/IP.
+-   ```host``` -- разрешает подключение по TCP/IP.
 
--   all -- разрешает подключаться к любым базам данных.
+-   ```all``` -- разрешает подключаться к любым базам данных.
 
--   all -- разрешает всем пользователям.
+-   ```all``` -- разрешает всем пользователям.
 
--   0.0.0.0/0 -- разрешает подключение с любого IP-адреса.
+-   ```0.0.0.0/0``` -- разрешает подключение с любого IP-адреса.
 
--   md5 -- требует аутентификацию по паролю.
+-   ```md5``` -- требует аутентификацию по паролю.
 
 Шаг 3. Проверка прослушиваемых портов с помощью команды:
 
-sudo ss -tulnp \| grep postgres
+```sudo ss -tulnp | grep postgres```
 
-![](LB1/media/image29.png){width="6.496527777777778in"
-height="0.6637751531058618in"}
+![](LB1/media/image29.png)
 
 Шаг 4. Чтобы узнать IP-адрес сервера, выполним:
 
-hostname -I
+```hostname -I```
 
-![](LB1/media/image30.png){width="6.496527777777778in"
-height="0.39590988626421697in"}
+![](LB1/media/image30.png)
 
 Шаг 5. Запускаем DBeaver и создаем новое подключение:
 
-![](LB1/media/image31.png){width="6.496527777777778in"
-height="3.6492213473315838in"}
+![](LB1/media/image31.png)
 
-![](LB1/media/image32.png){width="6.496527777777778in"
-height="5.821562773403325in"}
+![](LB1/media/image32.png)
 
-![](LB1/media/image33.png){width="4.395833333333333in"
-height="4.520833333333333in"}
+![](LB1/media/image33.png)
 
 10. **Журналирование (logging)**
 
 Шаг 1. Открываем файл конфигурации: sudo nano
 /etc/postgresql/15/main/postgresql.conf\\
 
-![](LB1/media/image34.png){width="6.496527777777778in"
-height="3.2721095800524935in"}
+![](LB1/media/image34.png)
 
 Объяснение параметров:
 
--   logging_collector = on -- включает сбор логов.
+-   ```logging_collector = on``` -- включает сбор логов.
 
--   log_directory = \'log\' -- директория для логов (по умолчанию в
+-   ```log_directory = 'log'``` -- директория для логов (по умолчанию в
     PGDATA/log).
 
--   log_filename = \'postgresql-%Y-%m-%d\_%H%M%S.log\' -- лог-файл с
+-   ```log_filename = 'postgresql-%Y-%m-%d\_%H%M%S.log'``` -- лог-файл с
     таймстампом.
 
--   log_min_messages = info -- записывает все события уровня INFO и
+-   ```log_min_messages = info``` -- записывает все события уровня INFO и
     выше.
 
--   log_statement = \'all\' -- логирует все SQL-запросы.
+-  ```log_statement = 'all'``` -- логирует все SQL-запросы.
 
--   log_timezone = \'Asia/Krasnoyarsk\' -- устанавливает часовой пояс.
+-   ```log_timezone = 'Asia/Krasnoyarsk'``` -- устанавливает часовой пояс.
 
 Важно, после внесения изменений требуется перезапустить PostgreSQL.
 
 Шаг 2. Добавляем префикс строк логов:
 
-log_line_prefix = \'%t \[%p\]: \[%l-1\] user=%u, db=%d, app=%a,
-client=%h \'
+```log_line_prefix = '%t [%p]: [%l-1] user=%u, db=%d, app=%a, client=%h '```
 
 Расшифровка параметров:
 
--   %t -- временная метка.
+-   ```%t``` -- временная метка.
 
--   %p -- PID процесса PostgreSQL.
+-   ```%p``` -- PID процесса PostgreSQL.
 
--   %l -- локальный идентификатор записи лога.
+-   ```%l``` -- локальный идентификатор записи лога.
 
--   %u -- имя пользователя базы данных.
+-   ```%u``` -- имя пользователя базы данных.
 
--   %d -- имя базы данных.
+-   ```%d``` -- имя базы данных.
 
--   %a -- приложение, откуда пришел запрос.
+-   ```%a``` -- приложение, откуда пришел запрос.
 
--   %h -- IP-адрес клиента.
+-   ```%h``` -- IP-адрес клиента.
 
-![](LB1/media/image35.png){width="6.496527777777778in"
-height="1.2804516622922135in"}
+![](LB1/media/image35.png)
 
-![](LB1/media/image36.png){width="6.496527777777778in"
-height="1.1473578302712162in"}
+![](LB1/media/image36.png)
 
 Шаг 3. Находим папку с логами:
 
-ls /var/lib/postgresql/15/main/log/
+```ls /var/lib/postgresql/15/main/log/```
 
 Просматриваем последние строки лога:
 
-tail -f /var/lib/postgresql/15/main/log/postgresql-\*.log
+```tail -f /var/lib/postgresql/15/main/log/postgresql-\*.log```
 
-![](LB1/media/image37.png){width="6.496527777777778in"
-height="0.4955632108486439in"}
+![](LB1/media/image37.png)
 
-![](LB1/media/image38.png){width="6.496527777777778in"
-height="1.5154746281714786in"}
+![](LB1/media/image38.png)
 
 Шаг 4. При рестарте PostgreSQL должен появиться лог с информацией о
 запуске:
 
-![](LB1/media/image39.png){width="6.496527777777778in"
-height="1.4422287839020123in"}
+![](LB1/media/image39.png)
 
 11. **Назначение ролей и прав**
 
 Шаг 1. Создаем пользователя lim_u с паролем:
 
-CREATE ROLE lim_u WITH LOGIN PASSWORD \'пароль\';
+```CREATE ROLE lim_u WITH LOGIN PASSWORD 'пароль';```
 
-![](LB1/media/image40.png){width="6.496527777777778in"
-height="1.8542847769028872in"}
+![](LB1/media/image40.png)
 
 Шаг 2. Сощдаем базу test_bd и подключились к ней:\\
 
-CREATE DATABASE test_bd;
+```CREATE DATABASE test_bd;```
 
-\\c test_bd
+```\c test_bd```
 
 Шаг 3. Создаем таблицу test_t:
 
 Шаг 4. Выдали права на подключение к базе и на чтение таблицы test_t::
 
-GRANT CONNECT ON DATABASE test_bd TO lim_u;
+```GRANT CONNECT ON DATABASE test_bd TO lim_u;```
 
-GRANT SELECT ON test_t TO lim_u;
+```GRANT SELECT ON test_t TO lim_u;```
 
-![](LB1/media/image41.png){width="6.496527777777778in"
-height="1.8035126859142607in"}
+![](LB1/media/image41.png)
 
-Шаг 5. Проверяете права на таблицу test_t с помощью команды \\z test_t:
+Шаг 5. Проверяете права на таблицу test_t с помощью команды:
 
-\\z test_t
+```\z test_t```
 
-![](LB1/media/image42.png){width="6.496527777777778in"
-height="1.987937445319335in"}
+![](LB1/media/image42.png)
 
 Шаг 6. Создана роль man, которая была добавлена в lim_u:
 
-CREATE ROLE man WITH LOGIN PASSWORD \'12345\';
+```CREATE ROLE man WITH LOGIN PASSWORD '12345';```
 
-GRANT man TO lim_u;
+```GRANT man TO lim_u;```
 
-![](LB1/media/image43.png){width="6.496527777777778in"
-height="0.4212587489063867in"}
+![](LB1/media/image43.png)
 
 Шаг 7. Вставляем данные в таблицу test_t в базе test_bd:
 
-INSERT INTO test_t (name) VALUES (\'proverka\');
+```INSERT INTO test_t (name) VALUES ('proverka');```
 
-![](LB1/media/image44.png){width="6.496527777777778in"
-height="0.15418963254593177in"}
+![](LB1/media/image44.png)
