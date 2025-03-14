@@ -270,8 +270,7 @@
 
 ```\\l```
 
-![](LB1/media/image17.png){width="6.496527777777778in"
-height="3.1046052055993in"}
+![](LB1/media/image17.png)
 
 7.  **Знакомство со схемами**
 
@@ -296,60 +295,52 @@ height="3.1046052055993in"}
 
 Шаг 1. Создадим схему test_schema
 
-CREATE SCHEMA test_schema;
+```CREATE SCHEMA test_schema;```
 
 Чтобы пользователь sav мог использовать эту схему, нужно дать ему права:
 
-GRANT USAGE ON SCHEMA test_schema TO sav;
+```GRANT USAGE ON SCHEMA test_schema TO sav;```
 
-GRANT CREATE ON SCHEMA test_schema TO sav;
+```GRANT CREATE ON SCHEMA test_schema TO sav;```
 
-![](LB1/media/image18.png){width="6.496527777777778in"
-height="1.0143274278215224in"}
+![](LB1/media/image18.png)
 
 Объяснение:
 
--   USAGE -- позволяет пользователю использовать объекты схемы.
+-   ```USAGE``` -- позволяет пользователю использовать объекты схемы.
 
--   CREATE -- разрешает создавать объекты внутри схемы.
+-   ```CREATE``` -- разрешает создавать объекты внутри схемы.
 
 Шаг 2. Создадим таблицу schema_table в схеме по умолчанию:
 
-CREATE TABLE \"schema_table\" (
-
-\"id\" int PRIMARY KEY,
-
-\"text\" text
-
-);
+```CREATE TABLE "schema_table" ("id" int PRIMARY KEY, "text" text);```
 
 Переместим её в test_schema:
 
-ALTER TABLE schema_table SET SCHEMA test_schema;
+```ALTER TABLE schema_table SET SCHEMA test_schema;```
 
-![](LB1/media/image19.png){width="6.496527777777778in"
-height="1.3745548993875765in"}
+![](LB1/media/image19.png)
 
 Шаг 3. В PostgreSQL, если схема не указана явно, поиск объектов
 происходит в схеме по умолчанию (public). Чтобы обратиться к таблице в
 другой схеме, нужно указать её полное имя:
 
-SELECT \* FROM test_schema.schema_table;
+```SELECT * FROM test_schema.schema_table;```
 
 Шаг 4. (Доп) Работа с search_path
 
 Чтобы обращаться к объектам схемы без явного указания схемы, можно
 изменить search_path:
 
-SET search_path TO test_schema;
+```SET search_path TO test_schema;```
 
 Теперь команда:
 
-SELECT \* FROM schema_table;
+```SELECT * FROM schema_table;```
 
 будет эквивалентна:
 
-SELECT \* FROM test_schema.schema_table;
+```SELECT * FROM test_schema.schema_table;```
 
 8.  **Использование утилиты psql для базовых операций**
 
