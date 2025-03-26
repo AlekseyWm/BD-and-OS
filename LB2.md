@@ -34,16 +34,14 @@
 
 ```pg_dump -U postgres -Fc -f bd1_backup.dump```
 
-![](LB2/media/image1.png){width="6.496527777777778in"
-height="0.39171916010498686in"}
+![](LB2/media/image1.png)
 
 Шаг 2. После выполнения команды убедимся, что файл дампа появился в
 рабочем каталоге:
 
 ```ls```
 
-![](LB2/media/image2.png){width="6.496527777777778in"
-height="0.39226815398075243in"}
+![](LB2/media/image2.png)
 
 #### **Форматы бэкапа**
 
@@ -130,22 +128,19 @@ height="0.39226815398075243in"}
 
 ```pg_dump -U postgres -n test_schema -Fc -f backup_s.dump bd1```
 
-![](LB2/media/image3.png){width="6.496527777777778in"
-height="0.9418241469816273in"}
+![](LB2/media/image3.png)
 
 Шаг 2. Команда для дампа отдельной таблицы public.pub_table:
 
 ```pg_dump -U postgres -t public.pub_table -Fc -f backup_t.dump bd1```
 
-![](LB2/media/image4.png){width="6.496526684164479in"
-height="0.46715113735783026in"}
+![](LB2/media/image4.png)
 
 Шаг 3. Команда для дампа бд bd1:
 
 ```pg_dump -U postgres -Fc -f bd1_full_backup.dump bd1```
 
-![](LB2/media/image5.png){width="6.496526684164479in"
-height="2.2569510061242344in"}
+![](LB2/media/image5.png)
 
 ### 4. Восстановление из резервной копии
 
@@ -154,19 +149,16 @@ height="2.2569510061242344in"}
 
 ```createdb -U postgres new_bd```
 
-![](LB2/media/image6.png){width="6.496527777777778in"
-height="2.963218503937008in"}
+![](LB2/media/image6.png)
 
-![](LB2/media/image7.png){width="6.496527777777778in"
-height="4.782428915135608in"}
+![](LB2/media/image7.png)
 
 Шаг 2. Используем ```pg_restore```, чтобы загрузить данные из файла
 ```bd1_backup.dump``` в только что созданную базу ```new_bd```
 
 ```pg_restore -U postgres -d new_bd bd1_backup.dump```
 
-![](LB2/media/image8.png){width="6.496527777777778in"
-height="2.403338801399825in"}
+![](LB2/media/image8.png)
 
 ### 5. Автоматизация бэкапов с помощью cron
 
@@ -189,21 +181,18 @@ postgres.
 Шаг 1. Использование ```top``` - показывает в реальном времени список
 процессов и суммарную статистику по системе.
 
-![](LB2/media/image10.png){width="6.496527777777778in"
-height="3.153707349081365in"}
+![](LB2/media/image10.png)
 
 Шаг 2. Использование ```htop``` улучшенная версия top, которая показывает
 процессы в более наглядном интерфейсе, с цветными индикаторами CPU, RAM,
 Swap.
 
-![](LB2/media/image11.png){width="6.496527777777778in"
-height="3.0897462817147856in"}
+![](LB2/media/image11.png)
 
 Шаг 3. Использование ```iotop``` --- утилита для мониторинга дискового
 ввода-вывода (IO
 
-![](LB2/media/image12.png){width="6.496527777777778in"
-height="4.737828083989501in"}
+![](LB2/media/image12.png)
 
 ### 7. Мониторинг PostgreSQL
 
@@ -211,27 +200,21 @@ height="4.737828083989501in"}
 и выполняемых запросов. ```pg_stat_database``` - статистика по всем базам
 данных: количество запросов, ошибки, объемы чтения/записи и т. д.
 
-![](LB2/media/image13.png){width="4.895833333333333in"
-height="1.4791666666666667in"}
+![](LB2/media/image13.png)
 
-![](LB2/media/image14.png){width="6.496527777777778in"
-height="1.4617180664916885in"}
+![](LB2/media/image14.png)
 
-![](LB2/media/image15.png){width="6.496527777777778in"
-height="0.4111078302712161in"}
+![](LB2/media/image15.png)
 
 Шаг 2. Создадим \"долгий запрос\"
 
-![](LB2/media/image16.png){width="6.496527777777778in"
-height="0.2890398075240595in"}
+![](LB2/media/image16.png)
 
 Шаг 3. Команда для того, чтобы увидеть активные процессы и запросы
 
-![](LB2/media/image17.png){width="6.496527777777778in"
-height="9.882655293088365e-2in"}
+![](LB2/media/image17.png)
 
-![](LB2/media/image18.png){width="6.496527777777778in"
-height="0.4720133420822397in"}
+![](LB2/media/image18.png)
 
 Шаг 4. Команда для того, чтобы смотреть все процессы:
 
@@ -240,33 +223,26 @@ height="0.4720133420822397in"}
 Шаг 5. Для поиска запросов, которые выполняются слишком долго,
 используем команду:
 
-![](LB2/media/image19.png){width="6.496527777777778in"
-height="0.28896106736657917in"}
+![](LB2/media/image19.png)
 
-![](LB2/media/image20.png){width="6.496527777777778in"
-height="0.3552777777777778in"}
+![](LB2/media/image20.png)
 
 Шаг 6. Для принудительное завершение запроса:
 
-![](LB2/media/image21.png){width="6.496527777777778in"
-height="0.705482283464567in"}
+![](LB2/media/image21.png)
 
 ### 8. Логирование и анализ логов
 
 Шаг 1. Выводим последние 50 строк журнала сервиса cron:
 
-![](LB2/media/image22.png){width="6.496527777777778in"
-height="6.5191108923884515in"}
+![](LB2/media/image22.png)
 
 Шаг 2. Просмотр содержимого каталога /var/log/postgresql/.
-![](LB2/media/image23.png){width="6.496527777777778in"
-height="0.5855577427821522in"}
+![](LB2/media/image23.png)
 
 Шаг 3. Выведем общие системные логи в Debian\
-![](LB2/media/image24.png){width="6.496527777777778in"
-height="1.5886034558180226in"}
+![](LB2/media/image24.png)
 
 Шаг 4. В реальном времени отслеживаем лог PostgreSQL
 
-![](LB2/media/image25.png){width="6.496527777777778in"
-height="1.309925634295713in"}
+![](LB2/media/image25.png)
